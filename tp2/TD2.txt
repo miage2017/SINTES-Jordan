@@ -1,0 +1,37 @@
+TD 2
+
+Exercice 2
+
+Il dit a chaque thread de compter selon son palier
+
+(2 50)
+exemple le thread 1 va afficher les valeurs entre 1 et 50 et le thread 2 entre 50 et 100
+
+Elle le semble mais n'est pas deterministe
+
+waithere() va faire un sleep un thrad pour donner la priorité à un autre thread
+la principale ressource est la sortie console (processeur), c'est elle qui partage
+
+______________
+
+Les 2 threads travaillent de manière parrallèle: lorsque qu'un thread va additionner, 
+il va avoir par exemple 4, mais il se peut que le 2ème thread n'ai pas pris en compte le fait que le thread 1 est arrivé à 
+4 donc quand il va soustraire, il va arriver à une valeur différente que s'il avait vraiment soustrait -4 ce qui fait qu'à 
+la fin ils vont mal additionner ou soustraire pour arriver à 0. (si c'était séquencielle, les résultats auraient été bon).
+
+Mais il faut quand meme trouver une solution pour que le parralélisme qui est une procédure rapide puisse quand meme donner 
+correctement les résultats sans qu'il y ait de hasard.
+
+dans ce cas pour que cela marche, il faut bloquer le thread 1 (donc on ne peut plus le lire ni l'ecrire) pour que le thread 2 
+puisse continuer correctement le travail de thread 1 et ainsi de suite
+
+synchronized est un module, le programme peut detecter la terminaison des threads mais ce sera plus ou moins long.
+
+maintenant avec le synchronized, on arriver bien à retomber à 0
+
+Verouillage:
+
+Le principe de vérouillage est la suivante: imaginons 4 méthodes qui seraient executées en thread. 2 threads disposeront du 
+verrou 1 et 2 threads disposeront du verrou 2. Une méthode ayant le verrou 1 peut s'executer en meme temps qu'une méthode ayant 
+le verrou 2. Mais une méthode ayant le verrou 1 ne peut pas s'executer en meme temps qu'une autre méthode ayant le meme verrou 1.
+
